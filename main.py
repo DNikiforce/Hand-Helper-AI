@@ -7,7 +7,7 @@ from telegram.ext import (
 from dotenv import load_dotenv
 from handlers.help import help_command
 from handlers.preflop import handle_preflop
-from speech.recognize import handle_voice
+from handlers.speech.recognize import handle_voice
 
 # Загрузка переменных окружения
 load_dotenv()
