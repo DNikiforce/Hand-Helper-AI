@@ -15,10 +15,10 @@ from handlers.result import handle_result
 from handlers.help import help_command
 from handlers.speech.recognize import handle_voice
 
-# Создаём глобальный менеджер сессий пользователей
+# Глобальный менеджер сессий
 session_manager = GameSessionManager()
 
-# ✨ Функция /start
+# Команда /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("👋 Привет! Отправь текст или голос, я дам разбор руки.")
 
@@ -40,7 +40,11 @@ async def on_startup():
     application.add_handler(CommandHandler("help", help_command))
 
     application.add_handler(MessageHandler(filters.VOICE, handle_voice))
+
+    # 📥 Все этапы игры: PF, POS, OPP, FLOP, TURN, RIVER, RESULT
     application.add_handler(MessageHandler(filters.Regex(r"^PF:"), handle_preflop))
+    application.add_handler(MessageHandler(filters.Regex(r"^POS:"), handle_preflop))
+    application.add_handler(MessageHandler(filters.Regex(r"^OPP:"), handle_preflop))
     application.add_handler(MessageHandler(filters.Regex(r"^FLO:"), handle_flop))
     application.add_handler(MessageHandler(filters.Regex(r"^TUR:"), handle_turn))
     application.add_handler(MessageHandler(filters.Regex(r"^RIV:"), handle_river))
@@ -59,3 +63,4 @@ async def handle_webhook(request: Request):
     update = Update.de_json(await request.json(), application.bot)
     await application.process_update(update)
     return "ok"
+
