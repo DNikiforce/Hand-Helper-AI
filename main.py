@@ -18,6 +18,10 @@ from handlers.speech.recognize import handle_voice
 # Создаём глобальный менеджер сессий пользователей
 session_manager = GameSessionManager()
 
+# ✨ Функция /start
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("👋 Привет! Отправь текст или голос, я дам разбор руки.")
+
 # Загрузка переменных окружения
 load_dotenv()
 TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -55,6 +59,3 @@ async def handle_webhook(request: Request):
     update = Update.de_json(await request.json(), application.bot)
     await application.process_update(update)
     return "ok"
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("👋 Привет! Отправь текст или голос, я дам разбор руки.")
