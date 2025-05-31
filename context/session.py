@@ -35,4 +35,14 @@ class SessionContext:
 
     def reset_board(self):
         self.board = []
+        
+        class GameSessionManager:
+    def __init__(self):
+        self.sessions = {}
+
+    def get(self, user_id: int) -> SessionContext:
+        if user_id not in self.sessions:
+            self.sessions[user_id] = SessionContext()
+        return self.sessions[user_id]
+
 
