@@ -35,8 +35,9 @@ class SessionContext:
 
     def reset_board(self):
         self.board = []
-        
-        class GameSessionManager:
+
+
+class GameSessionManager:
     def __init__(self):
         self.sessions = {}
 
