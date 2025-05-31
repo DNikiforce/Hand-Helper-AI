@@ -1,12 +1,11 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from logic.recommendation import recommend_bet
-from context.session import GameSessionManager
+from context import session_manager
 from utils.parser import parse_board
 from logic.equity import calculate_equity_and_outs
 from logic.strategy_tip import get_strategy_tip
 
-session_manager = GameSessionManager()
 
 async def handle_river(update: Update, context: ContextTypes.DEFAULT_TYPE):
     session = session_manager.get(update.effective_user.id)
