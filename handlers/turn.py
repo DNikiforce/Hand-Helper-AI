@@ -10,12 +10,13 @@ session_manager = GameSessionManager()
 
 async def handle_turn(update: Update, context: ContextTypes.DEFAULT_TYPE):
     session = session_manager.get(update.effective_user.id)
-    board = parse_board(update.message.text)
-    session.add_board_cards(board)
 
     if not session.hand:
         await update.message.reply_text("⚠️ Сначала введи свою руку (PF).")
         return
+
+    board = parse_board(update.message.text)
+    session.add_board_cards(board)
 
     equity, outs = calculate_equity_and_outs(
         session.hand, session.board, session.multi_count
@@ -27,4 +28,3 @@ async def handle_turn(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"📊 Equity: {equity}%\n🎯 Outs: {outs}\n💰 Bet: {bet}\n🧠 {tip}"
     )
 
-    )
