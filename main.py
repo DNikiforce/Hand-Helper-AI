@@ -8,7 +8,7 @@ from handlers.turn import handle_turn
 from handlers.river import handle_river
 from handlers.result import handle_result
 from logic.equity import calculate_equity_and_outs
-from utils.parser import parse_cards_from_emojis
+from utils.parser import parse_hand, parse_board
 from fastapi import FastAPI, Request
 from telegram import Update
 from telegram.ext import (
