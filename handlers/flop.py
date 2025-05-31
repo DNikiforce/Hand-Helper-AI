@@ -1,18 +1,21 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from context.session import GameSessionManager
+from utils.parser import parse_board
 from logic.equity import calculate_equity_and_outs
-from utils.parser import parse_cards_from_emojis
 
 session_manager = GameSessionManager()
 
 async def handle_flop(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-    message = update.message.text
+    session = session_manager.get(update.effective_user.id)
+    board = parse_board(update.message.text)
+    session.add_board_cards(board)
 
-    session_manager.update_stage(user_id, 'flop', message)
-    session = session_manager.get_session(user_id)
+    if not session.hand:
+        await update.message.reply_text("❗ Сначала введи свою руку (PF).")
+        return
 
-    result = calculate_equity_and_outs(session)
-    await update.message.reply_text(result)
-
+    equity, outs = calculate_equity_and_outs(session.hand, session.board, session.multi_count)
+    await update.message.reply_text(
+        f"📊 Equity: {equity}%\n🎯 Outs: {outs}\n📥 Bet: Полпот или чек"
+    )
