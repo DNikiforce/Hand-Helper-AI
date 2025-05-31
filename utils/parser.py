@@ -1,14 +1,19 @@
-def parse_card(card_emoji):
-    ranks = {'A': 'A', 'K': 'K', 'Q': 'Q', 'J': ' 'J', 'T': 'T', '9': '9',
-             '8': '8', '7': '7', '6': '6', '5': '5', '4': '4', '3': '3', '2': '2'}
-    suits = {'♠': 's', '♥': 'h', '♦': 'd', '♣': 'c'}
-    rank, suit = card_emoji[:-1], card_emoji[-1]
-    return ranks.get(rank, rank), suits.get(suit, suit)
+# utils/parser.py
 
-def parse_hand(line):
-    cards = line.strip().replace("PF:", "").split()
-    return [parse_card(card) for card in cards]
+emoji_to_card = {
+    # Spades ♠
+    "🂡": "As", "🂢": "2s", "🂣": "3s", "🂤": "4s", "🂥": "5s", "🂦": "6s",
+    "🂧": "7s", "🂨": "8s", "🂩": "9s", "🂪": "Ts", "🂫": "Js", "🂭": "Qs", "🂮": "Ks",
+    # Hearts ♥
+    "🂱": "Ah", "🂲": "2h", "🂳": "3h", "🂴": "4h", "🂵": "5h", "🂶": "6h",
+    "🂷": "7h", "🂸": "8h", "🂹": "9h", "🂺": "Th", "🂻": "Jh", "🂽": "Qh", "🂾": "Kh",
+    # Clubs ♣
+    "🃑": "Ac", "🃒": "2c", "🃓": "3c", "🃔": "4c", "🃕": "5c", "🃖": "6c",
+    "🃗": "7c", "🃘": "8c", "🃙": "9c", "🃚": "Tc", "🃛": "Jc", "🃝": "Qc", "🃞": "Kc",
+    # Diamonds ♦
+    "🃁": "Ad", "🃂": "2d", "🃃": "3d", "🃄": "4d", "🃅": "5d", "🃆": "6d",
+    "🃇": "7d", "🃈": "8d", "🃉": "9d", "🃊": "Td", "🃋": "Jd", "🃍": "Qd", "🃎": "Kd"
+}
 
-def parse_board(line):
-    cards = line.strip().split()[1:]
-    return [parse_card(card) for card in cards]
+def parse_cards_from_emojis(message: str):
+    return [emoji_to_card[c] for c in message if c in emoji_to_card]
