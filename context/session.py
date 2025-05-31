@@ -44,3 +44,6 @@ class GameSessionManager:
         if user_id not in self.sessions:
             self.sessions[user_id] = SessionContext()
         return self.sessions[user_id]
+
+# ⬇️ Добавь вот эту строку в конце!
+session_manager = GameSessionManager()
