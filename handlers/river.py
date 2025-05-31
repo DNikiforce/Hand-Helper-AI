@@ -1,4 +1,5 @@
 from telegram import Update
+from logic.recommendation import recommend_bet
 from telegram.ext import ContextTypes
 from context.session import GameSessionManager
 from utils.parser import parse_board
