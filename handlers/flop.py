@@ -6,9 +6,9 @@ from utils.parser import parse_board
 from logic.equity import calculate_equity_and_outs
 from logic.strategy_tip import get_strategy_tip
 
-
 async def handle_flop(update: Update, context: ContextTypes.DEFAULT_TYPE):
     session = session_manager.get(update.effective_user.id)
+
     board = parse_board(update.message.text)
     session.add_board_cards(board)
 
@@ -25,3 +25,4 @@ async def handle_flop(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         f"📊 Equity: {equity}%\n🎯 Outs: {outs}\n💰 Bet: {bet}\n🧠 {tip}"
     )
+
