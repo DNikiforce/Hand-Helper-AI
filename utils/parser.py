@@ -1,5 +1,3 @@
-# utils/parser.py
-
 emoji_to_card = {
     "🂡": "As", "🂢": "2s", "🂣": "3s", "🂤": "4s", "🂥": "5s", "🂦": "6s",
     "🂧": "7s", "🂨": "8s", "🂩": "9s", "🂪": "Ts", "🂫": "Js", "🂭": "Qs", "🂮": "Ks",
@@ -35,11 +33,10 @@ def parse_card(symbol):
 
 
 def parse_hand(line):
-    parts = line.strip().replace("PF:", "").split()
+    parts = line.strip()[3:].split()  # Убираем только "PF:"
     return [parse_card(p) for p in parts if parse_card(p)]
 
 
 def parse_board(line):
     parts = line.strip().split()[1:]  # Пропуск FLOP: TURN: RIV:
     return [parse_card(p) for p in parts if parse_card(p)]
-
