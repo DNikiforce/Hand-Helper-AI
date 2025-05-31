@@ -25,10 +25,10 @@ class SessionContext:
             self.is_multi = False
 
    def set_opponent(self, opp_type):
-    allowed = ["TAG", "FISH", "LAG", "NIT", "MANIAC"]
-    opp_type = opp_type.strip().upper()
-    if opp_type in allowed:
-        self.opponent_type = opp_type
+       allowed = ["TAG", "FISH", "LAG", "NIT", "MANIAC"]
+       opp_type = opp_type.strip().upper()
+       if opp_type in allowed:
+           self.opponent_type = opp_type
 
     def add_board_cards(self, cards):
         self.board.extend(cards)
