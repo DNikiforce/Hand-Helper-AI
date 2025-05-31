@@ -10,33 +10,34 @@ emoji_to_card = {
 }
 
 suit_map = {
-    "♠": "s", "♥": "h", "♦": "d", "♣": "c",  # Unicode suits
-    "S": "s", "H": "h", "D": "d", "C": "c"   # Text suits
+    "♠": "s", "♥": "h", "♦": "d", "♣": "c",  # Unicode
+    "S": "s", "H": "h", "D": "d", "C": "c",  # Text uppercase
+    "s": "s", "h": "h", "d": "d", "c": "c"   # ✅ добавлено
 }
 
 valid_ranks = {"A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"}
 
 
 def parse_card(symbol):
-    symbol = symbol.strip().replace("️", "")  # Remove variation selector
-
+    symbol = symbol.strip().replace("️", "")
     if symbol in emoji_to_card:
         return emoji_to_card[symbol]
-
     if len(symbol) == 2:
         rank = symbol[0].upper()
         suit = symbol[1]
         if rank in valid_ranks and suit in suit_map:
             return rank + suit_map[suit]
-
     return None
 
 
 def parse_hand(line):
-    parts = line.strip()[3:].split()  # Убираем только "PF:"
-    return [parse_card(p) for p in parts if parse_card(p)]
+    parts = line.strip()[3:].split()
+    parsed = [parse_card(p) for p in parts if parse_card(p)]
+    if len(parsed) != 2:
+        return []
+    return parsed
 
 
 def parse_board(line):
-    parts = line.strip().split()[1:]  # Пропуск FLOP: TURN: RIV:
+    parts = line.strip().split()[1:]
     return [parse_card(p) for p in parts if parse_card(p)]
