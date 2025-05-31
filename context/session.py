@@ -45,5 +45,5 @@ class GameSessionManager:
             self.sessions[user_id] = SessionContext()
         return self.sessions[user_id]
 
-# ⬇️ Добавь вот эту строку в конце!
+# ⬇️ Добавь обязательно ЭТО:
 session_manager = GameSessionManager()
