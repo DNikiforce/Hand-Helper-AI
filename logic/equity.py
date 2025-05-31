@@ -1,7 +1,7 @@
 import eval7
 import random
 
-def calculate_equity(hand, board, num_opponents=1, iterations=1000):
+def calculate_equity_and_outs(hand, board, num_opponents=1, iterations=1000):
     deck = eval7.Deck()
     hero = [eval7.Card(f"{r}{s}") for r, s in hand]
     known = hero + [eval7.Card(f"{r}{s}") for r, s in board]
