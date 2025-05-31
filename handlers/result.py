@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import ContextTypes
-from context import session_manager
+from context.session import session_manager
 
 async def handle_result(update: Update, context: ContextTypes.DEFAULT_TYPE):
     session = session_manager.get(update.effective_user.id)
