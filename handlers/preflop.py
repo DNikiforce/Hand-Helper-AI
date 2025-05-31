@@ -21,5 +21,6 @@ async def handle_preflop(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     hand = parse_hand(text)
     session.set_hand(hand)
+
     await update.message.reply_text("🤝 Рука получена. Теперь введи FLO:")
 
